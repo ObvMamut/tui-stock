@@ -43,7 +43,7 @@ npm install
 1. Initialize the application:
 
 ```bash
-./tui-stock
+gcc src/main.c src/app.c src/data.c src/interact.c -o tui-stock -lncurses && ./tui-stock
 ```
 
 2. Follow the on-screen prompts to log in, view the dashboard, or manage stocks.
