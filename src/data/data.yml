@@ -1,3 +1,4 @@
 stocks:
-- BTC
+  - BINANCE:BTCUSD
+  - BINANCE:ETHUSD
 

@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const TradingView = require('@mathieuc/tradingview');
-
+const yaml = require('js-yaml');
 
 if (!process.env.SESSION || !process.env.SIGNATURE) {
     throw Error('Please set your sessionid and signature cookies');
@@ -45,24 +45,21 @@ function getIndicData(indicatorId, market, timeframe, range) {
     });
 }
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 async function getDataAndSaveToFile(market, timeframe, range, indicatorIds, filename) {
     const chart = declareMarket(market, timeframe, range);
     const priceData = await fetchPriceData(chart);
     const data = { prices: priceData };
 
-    for (const id of indicatorIds) {
-        const indicatorData = await getIndicData(id, market, timeframe, range);
+    const indicatorPromises = indicatorIds.map(id => getIndicData(id, market, timeframe, range));
+    const indicatorDataArray = await Promise.all(indicatorPromises);
+
+    indicatorDataArray.forEach(indicatorData => {
         data[indicatorData.name] = indicatorData.periods;
-        //await delay(1000); // 1 second delay
-    }
+    });
 
     client.end();
-    fs.writeFileSync(filename, JSON.stringify(data, null, 2));
-    //console.log(`Data saved to ${filename}`);
+    const yamlData = yaml.dump(data);
+    fs.writeFileSync(filename, yamlData);
 }
 
 const timeframe = process.argv[3] || '15'; // 15 minute timeframe
@@ -74,6 +71,6 @@ const indicatorIds = [
     'PUB;68', // ichimoku
     'PUB;AQ5m8q9krLvMsvXtlbKesEd34hGNtuDo' // Analayse Technique Dynamique (ATD)
 ];
-const filename = 'src/data/data.json';
+const filename = 'src/data/price-indicator.yml';
 
 getDataAndSaveToFile(market, timeframe, range, indicatorIds, filename);

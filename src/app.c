@@ -2,156 +2,59 @@
 // Created by mamut on 12/27/24.
 //
 #include <stdio.h>
-#include "app.h"
+#include "../include/app.h"
 #include <ncurses.h>
 #include <string.h>
 #include <yaml.h>
+#include "../include/interact.h"
+#include "../include/data.h"
 
-// Function to read and print contents of a YAML file
-char** read_yaml_file(const char* filename, int* count) {
-    FILE* file = fopen(filename, "r");
-    if (!file) {
-        perror("Failed to open file");
-        return NULL;
+
+int get_length(char **array) {
+    int length = 0;
+    while (array[length] != NULL) {
+        length++;
     }
-
-    yaml_parser_t parser;
-    yaml_event_t event;
-
-    if (!yaml_parser_initialize(&parser)) {
-        fputs("Failed to initialize parser!\n", stderr);
-        fclose(file);
-        return NULL;
-    }
-
-    yaml_parser_set_input_file(&parser, file);
-
-    char** result = malloc(sizeof(char*) * 100); // Allocate memory for up to 100 strings
-    *count = 0;
-
-    int done = 0;
-    while (!done) {
-        if (!yaml_parser_parse(&parser, &event)) {
-            fputs("Parser error\n", stderr);
-            break;
-        }
-
-        switch (event.type) {
-            case YAML_SCALAR_EVENT:
-                result[*count] = strdup((char*)event.data.scalar.value);
-            (*count)++;
-            break;
-            case YAML_STREAM_END_EVENT:
-                done = 1;
-            break;
-            default:
-                break;
-        }
-
-        yaml_event_delete(&event);
-    }
-
-    yaml_parser_delete(&parser);
-    fclose(file);
-
-    return result;
+    return length;
 }
 
+void example_usage() {
 
-void append_to_yaml(const char *filename, const char *new_data) {
-    FILE *file = fopen(filename, "r");
-    if (!file) {
-        perror("Error opening file for reading");
-        return;
+    PriceData* prices;
+    int price_count;
+    MACDData* macd;
+    int macd_count;
+    RSIData* rsi;
+    int rsi_count;
+    IchimokuData* ichimoku;
+    int ichimoku_count;
+    ATDData* atd;
+    int atd_count;
+
+    parse_price_indicator_yml("src/data/price-indicator.yml", &prices, &price_count, &macd, &macd_count, &rsi, &rsi_count, &ichimoku, &ichimoku_count, &atd, &atd_count);
+
+
+    // Print the close prices
+    for (int i = 0; i < price_count; i++) {
+        printf("Close Price %d: %f\n", i, prices[i].close);
     }
 
-    yaml_parser_t parser;
-    yaml_document_t document;
-    yaml_node_t *node;
 
-    if (!yaml_parser_initialize(&parser)) {
-        fputs("Failed to initialize parser!\n", stderr);
-        fclose(file);
-        return;
-    }
-
-    yaml_parser_set_input_file(&parser, file);
-
-    if (!yaml_parser_load(&parser, &document)) {
-        fputs("Failed to load YAML document!\n", stderr);
-        yaml_parser_delete(&parser);
-        fclose(file);
-        return;
-    }
-
-    fclose(file);
-
-    // Find the stocks sequence node
-    yaml_node_t *stocks_node = NULL;
-    for (int i = 1; i <= document.nodes.top - document.nodes.start; i++) {
-        node = yaml_document_get_node(&document, i);
-        if (node->type == YAML_MAPPING_NODE) {
-            for (yaml_node_pair_t *pair = node->data.mapping.pairs.start;
-                 pair < node->data.mapping.pairs.top; pair++) {
-                yaml_node_t *key = yaml_document_get_node(&document, pair->key);
-                if (key->type == YAML_SCALAR_NODE && strcmp((char *)key->data.scalar.value, "stocks") == 0) {
-                    stocks_node = yaml_document_get_node(&document, pair->value);
-                    break;
-                }
-            }
-        }
-        if (stocks_node) break;
-    }
-
-    if (!stocks_node || stocks_node->type != YAML_SEQUENCE_NODE) {
-        fputs("Failed to find the stocks sequence!\n", stderr);
-        yaml_document_delete(&document);
-        yaml_parser_delete(&parser);
-        return;
-    }
-
-    // Append the new data
-    int new_scalar_index = yaml_document_add_scalar(
-        &document, NULL, (yaml_char_t *)new_data, strlen(new_data), YAML_PLAIN_SCALAR_STYLE);
-
-    // Reallocate the sequence items to add the new scalar
-    int sequence_size = stocks_node->data.sequence.items.top - stocks_node->data.sequence.items.start;
-    yaml_node_item_t *new_items = malloc((sequence_size + 2) * sizeof(yaml_node_item_t));
-    memcpy(new_items, stocks_node->data.sequence.items.start, sequence_size * sizeof(yaml_node_item_t));
-    new_items[sequence_size] = new_scalar_index;
-    new_items[sequence_size + 1] = 0; // Null-terminate the items array
-
-    free(stocks_node->data.sequence.items.start);
-    stocks_node->data.sequence.items.start = new_items;
-    stocks_node->data.sequence.items.top = new_items + sequence_size + 1;
-
-    // Write the updated document back to the file
-    file = fopen(filename, "w");
-    if (!file) {
-        perror("Error opening file for writing");
-        yaml_document_delete(&document);
-        yaml_parser_delete(&parser);
-        return;
-    }
-
-    yaml_emitter_t emitter;
-    if (!yaml_emitter_initialize(&emitter)) {
-        fputs("Failed to initialize emitter!\n", stderr);
-        fclose(file);
-        yaml_document_delete(&document);
-        yaml_parser_delete(&parser);
-        return;
-    }
-
-    yaml_emitter_set_output_file(&emitter, file);
-    yaml_emitter_dump(&emitter, &document);
-
-    yaml_emitter_delete(&emitter);
-    yaml_document_delete(&document);
-    yaml_parser_delete(&parser);
-    fclose(file);
+    // Use the parsed data...
 }
+
+void print_array(char** array) {
+    int i = 0;
+    while (array[i] != NULL) {
+        printf("%s ", array[i]);
+        free(array[i]); // Free each string after printing
+        i++;
+    }
+    free(array); // Free the array itself
+}
+
 void init_app() {
+
     initscr();            // Initialize the window
     cbreak();             // Disable line buffering
     keypad(stdscr, TRUE); // Enable special keys to be interpreted by ncurses
@@ -159,7 +62,13 @@ void init_app() {
 }
 
 void run_app() {
-   main_menu();
+
+
+    example_usage();
+
+    napms(2000);
+
+    main_menu();
 }
 
 void cleanup_app() {
@@ -204,17 +113,23 @@ void dashboard() {
     clear();
     refresh();
 
-    int height = 55, width = 86;
+    int height = 55, width = 108;
     int start_y = (LINES - height) / 2;
     int start_x = (COLS - width) / 2;
 
     WINDOW *main_win = newwin(height, width, start_y, start_x);
     box(main_win, 0, 0);
 
-    // create 5 subwindows
+    // create n subwindows
 
-    for (int i = 0; i < 17; i++) {
-        int sub_height = 3, sub_width = 84;
+    // determine n based on number of stocks
+
+    int count_n = 0;
+    char** stocks = read_yml("src/data/data.yml", &count_n);
+    int n = get_length(stocks);
+
+    for (int i = 0; i < n; i++) {
+        int sub_height = 3, sub_width = 106;
         int sub_start_y = start_y + 1 + i * 3;
         int sub_start_x = start_x + 1;
 
@@ -222,25 +137,55 @@ void dashboard() {
         box(sub_win, 0, 0);
 
         // Add separators
-        for (int j = 1; j <= 4; j++) {
-            mvwprintw(sub_win, 1, j * (sub_width / 5), "|");
+        for (int j = 1; j <= 6; j++) {
+            mvwprintw(sub_win, 1, j * (sub_width / 7), "|");
         }
 
         // 1 subwindow i the header of the table
 
         if (i == 0) {
             mvwprintw(sub_win, 1, 1, "Stock Name");
-            mvwprintw(sub_win, 1, 1 + sub_width / 5, "Price");
-            mvwprintw(sub_win, 1, 1 + 2 * sub_width / 5, "Change");
-            mvwprintw(sub_win, 1, 1 + 3 * sub_width / 5, "Volume");
-            mvwprintw(sub_win, 1, 1 + 4 * sub_width / 5, "Market Cap");
+            mvwprintw(sub_win, 1, 1 + sub_width / 7, "Price");
+            mvwprintw(sub_win, 1, 1 + 2 * sub_width / 7, "MACD");
+            mvwprintw(sub_win, 1, 1 + 3 * sub_width / 7, "ATD");
+            mvwprintw(sub_win, 1, 1 + 4 * sub_width / 7, "RSI");
+            mvwprintw(sub_win, 1, 1 + 5 * sub_width / 7, "Ichimoku");
+            mvwprintw(sub_win, 1, 1 + 6 * sub_width / 7, "Score");
         } else {
-            mvwprintw(sub_win, 1, 1, "Subwindow %d", i + 1);
+
+            // load in stock name, price + indicator
+
+            // name
+
+            char* stock = stocks[i];
+
+            mvwprintw(sub_win, 1, 1, "%s", stock);
+
+            // load for each stock new data
+
+            // load data
+
+            run_node_command(stock);
+
+            // get data
+
+            // print the prices and indicator data
+
+            // int count_data = 0;  // Changed from int *count_data = 0
+            // char **data_arr = read_yml("src/data/price-indicator.yml", &count_data);  // Pass address of count_data
+            //
+            // for (int i = 0; i < count_data; i++) {
+            //     mvwprintw(sub_win, 1,1 + sub_width / 7, "%s", data_arr[i]);
+            //     free(data_arr[i]);
+            // }
+            // free(data_arr);
+
+            example_usage();
+
         }
 
         wrefresh(sub_win);
     }
-
 
     // add a info window at the bottom displaying the time frame used (15 min)
 
@@ -250,6 +195,11 @@ void dashboard() {
     // what time frame is loaded
 
     mvwprintw(info_win, 1, 1, "TIMEFRAME : 15 minute");
+
+
+    wrefresh(main_win);
+
+
 
     int counter = 0;
     nodelay(stdscr, TRUE);  // Make getch() non-blocking
@@ -262,24 +212,13 @@ void dashboard() {
             return;
         }
 
-        // Update counter and display
-        //mvwprintw(main_win, 1, 1, "Counter: %d", counter++);
-        //box(main_win, 0, 0);  // Redraw the box
         wrefresh(main_win);
 
-        napms(1000);  // Sleep for 2 seconds
     }
 }
 
-int get_length(char **array) {
-    int length = 0;
-    while (array[length] != NULL) {
-        length++;
-    }
-    return length;
-}
 
-void add_stock() {
+void manage_stocks() {
     clear();
     refresh();
 
@@ -296,7 +235,7 @@ void add_stock() {
     // display the stocks from the database (src/data/stocks.json)
 
     int count = 0;
-    char** stocks = read_yaml_file("src/data/data.yml", &count);
+    char** stocks = read_yml("src/data/data.yml", &count);
 
     // get the length of stocks
 
@@ -348,7 +287,7 @@ void add_stock() {
     // Add the stock to the database
 
     const char *new_data = stock_symbol;
-    append_to_yaml("src/data/data.yml", new_data);
+    write_yml("src/data/data.yml", new_data);
 
 
 
@@ -360,7 +299,7 @@ void main_menu() {
     const char *choices[] = {
         "Log in",
         "Dashboard",
-        "Add stock",
+        "Manage Stocks",
         "Exit"
     };
     int n_choices = sizeof(choices) / sizeof(choices[0]);
@@ -401,7 +340,7 @@ void main_menu() {
                     dashboard();
                 break;
                 case 2:
-                    add_stock();
+                    manage_stocks();
                 break;
                 case 3:
                     endwin();

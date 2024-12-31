@@ -13,17 +13,14 @@ include_directories(${CURSES_INCLUDE_DIR})
 # Include directories for libcyaml
 include_directories(/usr/local/include)
 
+# Include the header files directory
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+include_directories(include)
+
 # Add the executable
-add_executable(TUIStock src/main.c src/app.c
-        node_modules/yaml.h)
+add_executable(TUIStock src/main.c src/app.c src/interact.c src/data.c)
 
-# Link the ncurses and libcyaml libraries
+# Link the ncurses, libcyaml
+
 target_link_libraries(TUIStock ${CURSES_LIBRARIES} /usr/local/lib/libcyaml.a)
-
-# Custom target to use the specified gcc command
-add_custom_target(
-        custom_build ALL
-        COMMAND gcc ${CMAKE_SOURCE_DIR}/src/main.c ${CMAKE_SOURCE_DIR}/src/app.c -o main -lncurses -lcyaml
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        COMMENT "Building with custom gcc command"
-)

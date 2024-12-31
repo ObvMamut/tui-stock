@@ -3,11 +3,12 @@
 //
 
 #include <stdio.h>
-#include "app.h"
+#include "../include/app.h"
 
 int main() {
     init_app();
     run_app();
     cleanup_app();
+
     return 0;
 }

@@ -1,5 +1,4 @@
 .env
 .idea
-include/
 node_modules/
 cmake-build-debug/

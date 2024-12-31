@@ -6,6 +6,7 @@ pkgs.mkShell {
     pkgs.libyaml
     pkgs.gcc
     pkgs.makeWrapper
+    pkgs.jansson
   ];
 
   shellHook = ''

@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "@mathieuc/tradingview": "^3.5.0",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "js-yaml": "^4.1.0",
+    "pkg": "^5.8.1"
   }
 }

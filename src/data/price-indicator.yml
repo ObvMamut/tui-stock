@@ -1,0 +1,113 @@
+prices:
+  - time: 1735659000
+    open: 3418.65
+    close: 3415.97
+    max: 3425.06
+    min: 3407.35
+    volume: 423.32
+  - time: 1735658100
+    open: 3416.04
+    close: 3418.34
+    max: 3425.24
+    min: 3411.27
+    volume: 144.88
+Zero Lag MACD Enhanced - Version 1.2:
+  - $time: 1735659000
+    Positive_delta: 0
+    Negative_delta: -2.967145938106266
+    MACD_line: -0.062392394296693965
+    Signal: 2.904753543809572
+    fill_0_colorer: 1
+    EMA_on_MACD_line: 4.526841947094857
+    Dots: 1e+100
+    Dots_colorer: 1
+  - $time: 1735658100
+    Positive_delta: 0
+    Negative_delta: -2.766599864383302
+    MACD_line: 2.0272487493007247
+    Signal: 4.793848613684027
+    fill_0_colorer: 1
+    EMA_on_MACD_line: 5.674150532442745
+    Dots: 1e+100
+    Dots_colorer: 1
+Ultimate RSI [LuxAlgo]:
+  - $time: 1735659000
+    Ultimate_RSI: 75.54850127320022
+    Ultimate_RSI_colorer: 15
+    Signal_Line: 78.47078872598398
+    Signal_Line_colorer: 8
+    Plot: 80
+    Plot_colorer: 1e+100
+    Plot_2: 50
+    Plot_2_colorer: 1e+100
+    Plot_3: 20
+    Plot_3_colorer: 1e+100
+    fill_0_colorer: 1e+100
+    fill_1_colorer: 1e+100
+    fill_2_data: 80
+    fill_2_colorer: 11
+    plot_14: 16
+    fill_3_data: 20
+    fill_3_colorer: 16
+    plot_17: 14
+  - $time: 1735658100
+    Ultimate_RSI: 76.81994006204053
+    Ultimate_RSI_colorer: 15
+    Signal_Line: 78.92037141102763
+    Signal_Line_colorer: 8
+    Plot: 80
+    Plot_colorer: 1e+100
+    Plot_2: 50
+    Plot_2_colorer: 1e+100
+    Plot_3: 20
+    Plot_3_colorer: 1e+100
+    fill_0_colorer: 1e+100
+    fill_1_colorer: 1e+100
+    fill_2_data: 80
+    fill_2_colorer: 11
+    plot_14: 16
+    fill_3_data: 20
+    fill_3_colorer: 16
+    plot_17: 14
+Ichimoku2c:
+  - $time: 1735659000
+    Tenkan: 3425.995
+    Kijun: 3412.985
+    Chikou: 3415.97
+    SenkouA: 3362.395
+    SenkouB: 3371.9125
+  - $time: 1735658100
+    Tenkan: 3425.995
+    Kijun: 3411.7200000000003
+    Chikou: 3418.34
+    SenkouA: 3362.395
+    SenkouB: 3370.6
+Analyse Technique Dynamique - All In One - v1.0:
+  - $time: 1735659000
+    Plot: 3441.186592694135
+    Plot_colorer: 0
+    Plot_2: 3378.374407305912
+    Plot_2_colorer: 0
+    Fast_MM: 3424.7314285714306
+    Fast_MM_colorer: 1
+    Slow_MM: 3409.7805000000235
+    Slow_MM_colorer: 0
+    Up_Trending_SAR_2: 3446.496612
+    Up_Trending_SAR_2_colorer: 1e+100
+    Up_Trending_SAR: 3446.496612
+    Up_Trending_SAR_colorer: 1
+    fill_0_colorer: 2
+  - $time: 1735658100
+    Plot: 3440.6148487895703
+    Plot_colorer: 0
+    Plot_2: 3376.916151210476
+    Plot_2_colorer: 0
+    Fast_MM: 3425.9714285714304
+    Fast_MM_colorer: 1
+    Slow_MM: 3408.765500000023
+    Slow_MM_colorer: 0
+    Up_Trending_SAR_2: 3447.3694
+    Up_Trending_SAR_2_colorer: 1e+100
+    Up_Trending_SAR: 3447.3694
+    Up_Trending_SAR_colorer: 1
+    fill_0_colorer: 2
