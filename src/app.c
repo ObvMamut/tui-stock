@@ -18,7 +18,7 @@ int get_length(char **array) {
     return length;
 }
 
-void example_usage() {
+void init_indicator_and_price() {
 
     PriceData* prices;
     int price_count;
@@ -62,11 +62,6 @@ void init_app() {
 }
 
 void run_app() {
-
-
-    example_usage();
-
-    napms(2000);
 
     main_menu();
 }
@@ -171,16 +166,24 @@ void dashboard() {
 
             // print the prices and indicator data
 
-            // int count_data = 0;  // Changed from int *count_data = 0
-            // char **data_arr = read_yml("src/data/price-indicator.yml", &count_data);  // Pass address of count_data
-            //
-            // for (int i = 0; i < count_data; i++) {
-            //     mvwprintw(sub_win, 1,1 + sub_width / 7, "%s", data_arr[i]);
-            //     free(data_arr[i]);
-            // }
-            // free(data_arr);
+            PriceData* prices;
+            int price_count;
+            MACDData* macd;
+            int macd_count;
+            RSIData* rsi;
+            int rsi_count;
+            IchimokuData* ichimoku;
+            int ichimoku_count;
+            ATDData* atd;
+            int atd_count;
 
-            example_usage();
+            parse_price_indicator_yml("src/data/price-indicator.yml", &prices, &price_count, &macd, &macd_count, &rsi, &rsi_count, &ichimoku, &ichimoku_count, &atd, &atd_count);
+
+            // print the close prices
+
+            double close_price = prices[price_count - 1].close;
+
+            mvwprintw(sub_win, 1, 1 + sub_width / 7, "%f", close_price);
 
         }
 

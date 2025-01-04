@@ -1,40 +1,40 @@
 prices:
-  - time: 1735659000
-    open: 3418.65
-    close: 3415.97
-    max: 3425.06
-    min: 3407.35
-    volume: 423.32
-  - time: 1735658100
-    open: 3416.04
-    close: 3418.34
-    max: 3425.24
-    min: 3411.27
-    volume: 144.88
+  - time: 1735687800
+    open: 93479.21
+    close: 93285.74
+    max: 93510.01
+    min: 93285.74
+    volume: 0.74
+  - time: 1735686900
+    open: 93398.65
+    close: 93484.85
+    max: 93533.49
+    min: 93331.97
+    volume: 2.78
 Zero Lag MACD Enhanced - Version 1.2:
-  - $time: 1735659000
-    Positive_delta: 0
-    Negative_delta: -2.967145938106266
-    MACD_line: -0.062392394296693965
-    Signal: 2.904753543809572
-    fill_0_colorer: 1
-    EMA_on_MACD_line: 4.526841947094857
+  - $time: 1735687800
+    Positive_delta: 74.70525135300699
+    Negative_delta: 0
+    MACD_line: -18.136279701880994
+    Signal: -92.84153105488798
+    fill_0_colorer: 0
+    EMA_on_MACD_line: -185.55598930804354
     Dots: 1e+100
-    Dots_colorer: 1
-  - $time: 1735658100
-    Positive_delta: 0
-    Negative_delta: -2.766599864383302
-    MACD_line: 2.0272487493007247
-    Signal: 4.793848613684027
-    fill_0_colorer: 1
-    EMA_on_MACD_line: 5.674150532442745
+    Dots_colorer: 0
+  - $time: 1735686900
+    Positive_delta: 75.19236757161906
+    Negative_delta: 0
+    MACD_line: -78.18040372306132
+    Signal: -153.37277129468038
+    fill_0_colorer: 0
+    EMA_on_MACD_line: -227.41091670958417
     Dots: 1e+100
-    Dots_colorer: 1
+    Dots_colorer: 0
 Ultimate RSI [LuxAlgo]:
-  - $time: 1735659000
-    Ultimate_RSI: 75.54850127320022
+  - $time: 1735687800
+    Ultimate_RSI: 29.51497232297342
     Ultimate_RSI_colorer: 15
-    Signal_Line: 78.47078872598398
+    Signal_Line: 28.474499747177088
     Signal_Line_colorer: 8
     Plot: 80
     Plot_colorer: 1e+100
@@ -50,10 +50,10 @@ Ultimate RSI [LuxAlgo]:
     fill_3_data: 20
     fill_3_colorer: 16
     plot_17: 14
-  - $time: 1735658100
-    Ultimate_RSI: 76.81994006204053
+  - $time: 1735686900
+    Ultimate_RSI: 30.272089041668877
     Ultimate_RSI_colorer: 15
-    Signal_Line: 78.92037141102763
+    Signal_Line: 28.314427043208422
     Signal_Line_colorer: 8
     Plot: 80
     Plot_colorer: 1e+100
@@ -70,44 +70,44 @@ Ultimate RSI [LuxAlgo]:
     fill_3_colorer: 16
     plot_17: 14
 Ichimoku2c:
-  - $time: 1735659000
-    Tenkan: 3425.995
-    Kijun: 3412.985
-    Chikou: 3415.97
-    SenkouA: 3362.395
-    SenkouB: 3371.9125
-  - $time: 1735658100
-    Tenkan: 3425.995
-    Kijun: 3411.7200000000003
-    Chikou: 3418.34
-    SenkouA: 3362.395
-    SenkouB: 3370.6
+  - $time: 1735687800
+    Tenkan: 92689.115
+    Kijun: 93166.775
+    Chikou: 93278.29
+    SenkouA: 94197.235
+    SenkouB: 94955.18
+  - $time: 1735686900
+    Tenkan: 92689.115
+    Kijun: 93196.68
+    Chikou: 93484.85
+    SenkouA: 94197.235
+    SenkouB: 94976.54000000001
 Analyse Technique Dynamique - All In One - v1.0:
-  - $time: 1735659000
-    Plot: 3441.186592694135
-    Plot_colorer: 0
-    Plot_2: 3378.374407305912
+  - $time: 1735687800
+    Plot: 94069.23052024023
+    Plot_colorer: 1
+    Plot_2: 92477.73947975851
     Plot_2_colorer: 0
-    Fast_MM: 3424.7314285714306
-    Fast_MM_colorer: 1
-    Slow_MM: 3409.7805000000235
-    Slow_MM_colorer: 0
-    Up_Trending_SAR_2: 3446.496612
-    Up_Trending_SAR_2_colorer: 1e+100
-    Up_Trending_SAR: 3446.496612
-    Up_Trending_SAR_colorer: 1
-    fill_0_colorer: 2
-  - $time: 1735658100
-    Plot: 3440.6148487895703
-    Plot_colorer: 0
-    Plot_2: 3376.916151210476
+    Fast_MM: 93009.72714285666
+    Fast_MM_colorer: 0
+    Slow_MM: 93273.48499999937
+    Slow_MM_colorer: 1
+    Up_Trending_SAR_2: 91844.74
+    Up_Trending_SAR_2_colorer: 0
+    Up_Trending_SAR: 91844.74
+    Up_Trending_SAR_colorer: 1e+100
+    fill_0_colorer: 3
+  - $time: 1735686900
+    Plot: 94112.59758062697
+    Plot_colorer: 1
+    Plot_2: 92477.09741937176
     Plot_2_colorer: 0
-    Fast_MM: 3425.9714285714304
-    Fast_MM_colorer: 1
-    Slow_MM: 3408.765500000023
-    Slow_MM_colorer: 0
-    Up_Trending_SAR_2: 3447.3694
+    Fast_MM: 93008.2342857138
+    Fast_MM_colorer: 0
+    Slow_MM: 93294.84749999936
+    Slow_MM_colorer: 1
+    Up_Trending_SAR_2: 93607.2935081088
     Up_Trending_SAR_2_colorer: 1e+100
-    Up_Trending_SAR: 3447.3694
+    Up_Trending_SAR: 93607.2935081088
     Up_Trending_SAR_colorer: 1
-    fill_0_colorer: 2
+    fill_0_colorer: 3
